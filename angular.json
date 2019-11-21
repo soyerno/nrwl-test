@@ -21,8 +21,13 @@
             "polyfills": "apps/ticmas/src/polyfills.ts",
             "tsConfig": "apps/ticmas/tsconfig.app.json",
             "aot": false,
-            "assets": ["apps/ticmas/src/favicon.ico", "apps/ticmas/src/assets"],
-            "styles": ["apps/ticmas/src/styles.scss"],
+            "assets": [
+              "apps/ticmas/src/favicon.ico",
+              "apps/ticmas/src/assets"
+            ],
+            "styles": [
+              "apps/ticmas/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -82,7 +87,10 @@
               "apps/ticmas/tsconfig.app.json",
               "apps/ticmas/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/ticmas/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/ticmas/**"
+            ]
           }
         },
         "test": {
@@ -91,6 +99,29 @@
             "jestConfig": "apps/ticmas/jest.config.js",
             "tsConfig": "apps/ticmas/tsconfig.spec.json",
             "setupFile": "apps/ticmas/src/test-setup.ts"
+          }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/apps/ticmas-ssr",
+            "main": "apps/ticmas/src/main.server.ts",
+            "tsConfig": "apps/ticmas/tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/ticmas/src/environments/environment.ts",
+                  "with": "apps/ticmas/src/environments/environment.prod.ts"
+                }
+              ],
+              "sourceMap": false,
+              "optimization": {
+                "scripts": false,
+                "styles": true
+              }
+            }
           }
         }
       }
@@ -116,8 +147,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/ticmas-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/ticmas-e2e/**"]
+            "tsConfig": [
+              "apps/ticmas-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/ticmas-e2e/**"
+            ]
           }
         }
       }
@@ -135,7 +171,9 @@
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/main.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": ["apps/api/src/assets"]
+            "assets": [
+              "apps/api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -154,7 +192,8 @@
         "serve": {
           "builder": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "api:build"
+            "buildTarget": "api:build",
+            "port": 4001
           }
         },
         "lint": {
@@ -164,7 +203,10 @@
               "apps/api/tsconfig.app.json",
               "apps/api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/api/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/api/**"
+            ]
           }
         },
         "test": {
@@ -189,7 +231,10 @@
               "libs/api-interfaces/tsconfig.lib.json",
               "libs/api-interfaces/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/api-interfaces/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/api-interfaces/**"
+            ]
           }
         },
         "test": {
@@ -197,6 +242,76 @@
           "options": {
             "jestConfig": "libs/api-interfaces/jest.config.js",
             "tsConfig": "libs/api-interfaces/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "ticmas-ssr": {
+      "root": "apps/ticmas-ssr",
+      "sourceRoot": "apps/ticmas-ssr/src",
+      "projectType": "application",
+      "prefix": "ticmas-ssr",
+      "schematics": {},
+      "architect": {
+        "serve-all": {
+          "builder": "@angular-devkit/architect:concat",
+          "options": {
+            "targets": [
+              { "target": "ticmas:build" },
+              { "target": "ticmas:server" },
+              { "target": "ticmas-ssr:serve" }
+            ]
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/ticmas-ssr",
+            "main": "apps/ticmas-ssr/src/main.ts",
+            "tsConfig": "apps/ticmas-ssr/tsconfig.app.json",
+            "assets": [
+              "apps/ticmas-ssr/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/ticmas-ssr/src/environments/environment.ts",
+                  "with": "apps/ticmas-ssr/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "ticmas-ssr:build",
+            "port": 4000
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/ticmas-ssr/tsconfig.app.json",
+              "apps/ticmas-ssr/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/ticmas-ssr/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/ticmas-ssr/jest.config.js",
+            "tsConfig": "apps/ticmas-ssr/tsconfig.spec.json"
           }
         }
       }
