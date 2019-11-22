@@ -23,7 +23,8 @@
             "aot": false,
             "assets": [
               "apps/ticmas/src/favicon.ico",
-              "apps/ticmas/src/assets"
+              "apps/ticmas/src/assets",
+              "apps/ticmas/src/manifest.webmanifest"
             ],
             "styles": [
               "apps/ticmas/src/styles.scss"
@@ -58,7 +59,9 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "apps/ticmas/ngsw-config.json"
             }
           }
         },
@@ -104,7 +107,7 @@
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "dist/apps/ticmas-ssr",
+            "outputPath": "dist/apps/ticmas-server",
             "main": "apps/ticmas/src/main.server.ts",
             "tsConfig": "apps/ticmas/tsconfig.server.json"
           },
@@ -121,6 +124,20 @@
                 "scripts": false,
                 "styles": true
               }
+            }
+          }
+        },
+        "app-shell": {
+          "builder": "@angular-devkit/build-angular:app-shell",
+          "options": {
+            "browserTarget": "ticmas:build",
+            "serverTarget": "ticmas:server",
+            "route": "shell"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ticmas:build:production",
+              "serverTarget": "ticmas:server:production"
             }
           }
         }
@@ -193,7 +210,7 @@
           "builder": "@nrwl/node:execute",
           "options": {
             "buildTarget": "api:build",
-            "port": 4001
+            "port": 8889
           }
         },
         "lint": {
@@ -291,7 +308,7 @@
           "builder": "@nrwl/node:execute",
           "options": {
             "buildTarget": "ticmas-ssr:build",
-            "port": 4000
+            "port": 8888
           }
         },
         "lint": {
