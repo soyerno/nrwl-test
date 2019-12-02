@@ -16,7 +16,7 @@ import { CoreEffects } from './+state/core.effects';
 import { CoreFacade } from './+state/core.facade';
 import { NxModule } from '@nrwl/angular';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 @NgModule({

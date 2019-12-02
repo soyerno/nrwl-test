@@ -22,6 +22,12 @@
     },
     "ticmas-ssr": {
       "tags": []
+    },
+    "shell": {
+      "tags": []
+    },
+    "auth": {
+      "tags": []
     }
   }
 }

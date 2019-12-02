@@ -26,9 +26,7 @@
               "apps/ticmas/src/assets",
               "apps/ticmas/src/manifest.webmanifest"
             ],
-            "styles": [
-              "apps/ticmas/src/styles.scss"
-            ],
+            "styles": ["apps/ticmas/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -90,10 +88,7 @@
               "apps/ticmas/tsconfig.app.json",
               "apps/ticmas/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/ticmas/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/ticmas/**"]
           }
         },
         "test": {
@@ -164,13 +159,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/ticmas-e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/ticmas-e2e/**"
-            ]
+            "tsConfig": ["apps/ticmas-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/ticmas-e2e/**"]
           }
         }
       }
@@ -188,9 +178,7 @@
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/main.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": [
-              "apps/api/src/assets"
-            ]
+            "assets": ["apps/api/src/assets"]
           },
           "configurations": {
             "production": {
@@ -220,10 +208,7 @@
               "apps/api/tsconfig.app.json",
               "apps/api/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/api/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/api/**"]
           }
         },
         "test": {
@@ -248,10 +233,7 @@
               "libs/api-interfaces/tsconfig.lib.json",
               "libs/api-interfaces/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/api-interfaces/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/api-interfaces/**"]
           }
         },
         "test": {
@@ -274,9 +256,15 @@
           "builder": "@angular-devkit/architect:concat",
           "options": {
             "targets": [
-              { "target": "ticmas:build" },
-              { "target": "ticmas:server" },
-              { "target": "ticmas-ssr:serve" }
+              {
+                "target": "ticmas:build"
+              },
+              {
+                "target": "ticmas:server"
+              },
+              {
+                "target": "ticmas-ssr:serve"
+              }
             ]
           }
         },
@@ -286,9 +274,7 @@
             "outputPath": "dist/apps/ticmas-ssr",
             "main": "apps/ticmas-ssr/src/main.ts",
             "tsConfig": "apps/ticmas-ssr/tsconfig.app.json",
-            "assets": [
-              "apps/ticmas-ssr/src/assets"
-            ]
+            "assets": ["apps/ticmas-ssr/src/assets"]
           },
           "configurations": {
             "production": {
@@ -318,10 +304,7 @@
               "apps/ticmas-ssr/tsconfig.app.json",
               "apps/ticmas-ssr/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/ticmas-ssr/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/ticmas-ssr/**"]
           }
         },
         "test": {
@@ -329,6 +312,56 @@
           "options": {
             "jestConfig": "apps/ticmas-ssr/jest.config.js",
             "tsConfig": "apps/ticmas-ssr/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "shell": {
+      "root": "libs/shell",
+      "sourceRoot": "libs/shell/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shell/tsconfig.lib.json",
+              "libs/shell/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/shell/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shell/jest.config.js",
+            "tsConfig": "libs/shell/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "auth": {
+      "root": "libs/auth",
+      "sourceRoot": "libs/auth/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/auth/tsconfig.lib.json",
+              "libs/auth/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/auth/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/auth/jest.config.js",
+            "tsConfig": "libs/auth/tsconfig.spec.json"
           }
         }
       }

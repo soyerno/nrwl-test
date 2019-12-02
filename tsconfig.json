@@ -16,7 +16,13 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@ticmasworkspace/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@ticmasworkspace/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@ticmas/auth": ["dist/ticmas/auth"],
+      "@ticmas/auth/*": ["dist/ticmas/auth/*"],
+      "ticmas-auth": ["dist/ticmas-auth"],
+      "ticmas-auth/*": ["dist/ticmas-auth/*"],
+      "@ticmasworkspace/shell": ["libs/shell/src/index.ts"],
+      "@ticmasworkspace/auth": ["libs/auth/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
