@@ -9,19 +9,18 @@ export interface CatState extends EntityState<Cat> {
 }
 
 export const adapter: EntityAdapter<Cat> = createEntityAdapter<Cat>({
-  selectId: (cat: Cat) => cat._id,
-
+  selectId: (cat: Cat) => cat._id
 });
 
 export const initialState: CatState = adapter.getInitialState({
   // additional entity state properties
-  selectedCatId: null,
+  selectedCatId: null
 });
 
 const catReducer = createReducer(
   initialState,
   on(CatActions.addCat, (state, { cat }) => {
-    return adapter.addOne(cat, state)
+    return adapter.addOne(cat, state);
   }),
   on(CatActions.upsertCat, (state, { cat }) => {
     return adapter.upsertOne(cat, state);
@@ -33,7 +32,8 @@ const catReducer = createReducer(
     return adapter.upsertMany(cats, state);
   }),
   on(CatActions.updateCat, (state, { cat }) => {
-    return adapter.updateOne(cat, state);
+    console.log(cat);
+    return adapter.updateOne({ id: cat._id, changes: cat }, state);
   }),
   on(CatActions.updateCats, (state, { cats }) => {
     return adapter.updateMany(cats, state);
@@ -69,7 +69,7 @@ const {
   selectIds,
   selectEntities,
   selectAll,
-  selectTotal,
+  selectTotal
 } = adapter.getSelectors();
 
 // select the array of cat ids

@@ -60,7 +60,7 @@ export class CatsEffects {
     this.dataPersistence.pessimisticUpdate(CatsActionTypes.UpdateCatRequest, {
       run: (action: UpdateCatRequest, state: CatState) => {
         return this.catsService.update(action.cat).pipe(
-          map((res: Update<Cat>) => {
+          map((res: any) => {
             console.log(res)
             return updateCat({ cat: res });
           })
