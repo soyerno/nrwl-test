@@ -1,7 +1,9 @@
 import { EntityMetadataMap, DefaultDataServiceConfig } from '@ngrx/data';
 import { environment } from '../../../../apps/ticmas/src/environments/environment'
 const entityMetadata: EntityMetadataMap = {
-  Cats: {}
+  Cats: {
+    selectId: catSelectId,
+  }
 };
 
 // because the plural of "hero" is not "heros"
@@ -21,3 +23,7 @@ export const defaultDataServiceConfig: DefaultDataServiceConfig = {
     }
   }
 };
+
+export function catSelectId<T extends { _id: any }>(entity: T) {
+  return entity == null ? undefined : entity._id;
+}

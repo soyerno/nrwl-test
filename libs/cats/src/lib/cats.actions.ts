@@ -5,8 +5,8 @@ import { Cat } from './cats.model';
 
 export enum CatsActionTypes {
   ProjectSelected = '[Projects] Selected',
-  AddCatCall = '[Cats] Create Data',
-  AddCatCallError = '[Cats] Create Data Error',
+  LoadCatsRequest = '[Cats] Load Cats Data',
+  AddCatRequest = '[Cats] Create Data',
   ProjectsLoaded = '[Projects] Data Loaded',
   AddProject = '[Projects] Add Data',
   ProjectAdded = '[Projects] Data Added',
@@ -16,9 +16,14 @@ export enum CatsActionTypes {
   ProjectDeleted = '[Projects] Delete Data'
 }
 
-export class AddCatCall implements Action {
-  readonly type = CatsActionTypes.AddCatCall;
-  constructor(public payload: Cat) { }
+export class AddCatRequest implements Action {
+  readonly type = CatsActionTypes.AddCatRequest;
+  constructor(public cat: Cat) { }
+}
+
+export class LoadCatsRequest implements Action {
+  readonly type = CatsActionTypes.LoadCatsRequest;
+  constructor() { }
 }
 
 export const loadCats = createAction('[Cat/API] Load Cats', props<{ cats: Cat[] }>());

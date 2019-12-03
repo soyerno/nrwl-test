@@ -8,7 +8,10 @@ export interface CatState extends EntityState<Cat> {
   selectedCatId: number | null;
 }
 
-export const adapter: EntityAdapter<Cat> = createEntityAdapter<Cat>();
+export const adapter: EntityAdapter<Cat> = createEntityAdapter<Cat>({
+  selectId: (cat: Cat) => cat._id,
+
+});
 
 export const initialState: CatState = adapter.getInitialState({
   // additional entity state properties

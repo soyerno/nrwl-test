@@ -8,7 +8,9 @@ import { CatsService } from './cats.service';
 import {
   addCat,
   CatsActionTypes,
-  AddCatCall
+  AddCatRequest,
+  loadCats,
+  LoadCatsRequest
   // DeleteProject,
   // LoadProjects,
   // UpdateProject,
@@ -22,24 +24,29 @@ import { CatState } from './cats.reducer';
 
 @Injectable({ providedIn: 'root' })
 export class CatsEffects {
-  // @Effect()
-  // loadProjects$ = this.dataPersistence.fetch(ProjectsActionTypes.LoadProjects, {
-  //   run: (action: LoadProjects, state: ProjectsState) => {
-  //     return this.projectsService.all().pipe(map((res: Project[]) => new ProjectsLoaded(res)))
-  //   },
-  //   onError: (action: LoadProjects, error) => {
-  //     console.error('Error', error);
-  //   }
-  // });
+  @Effect()
+  loadCats$ = this.dataPersistence.fetch(CatsActionTypes.LoadCatsRequest, {
+    run: (action: LoadCatsRequest, state: CatState) => {
+      return this.catsService
+        .getAll()
+        .pipe(map((cats: Cat[]) => loadCats({ cats })));
+    },
+    onError: (action: LoadCatsRequest, error) => {
+      console.error('Error', error);
+    }
+  });
 
   AddCat$ = createEffect(() =>
-    this.dataPersistence.pessimisticUpdate(CatsActionTypes.AddCatCall, {
-      run: (action: AddCatCall, state: CatState) => {
-        return this.catsService
-          .add(action.payload)
-          .pipe(map((res: Cat) => addCat({ cat: res })));
+    this.dataPersistence.pessimisticUpdate(CatsActionTypes.AddCatRequest, {
+      run: (action: AddCatRequest, state: CatState) => {
+        return this.catsService.add(action.cat).pipe(
+          map((res: Cat) => {
+            console.log(res);
+            return addCat({ cat: res });
+          })
+        );
       },
-      onError: (action: AddCatCall, error) => {
+      onError: (action: AddCatRequest, error) => {
         console.error('Error', error);
       }
     })

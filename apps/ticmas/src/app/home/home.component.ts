@@ -3,7 +3,6 @@ import { FormControl } from '@angular/forms';
 import { CatsFacade } from 'libs/cats/src/lib/cats.facade';
 import { Observable } from 'rxjs';
 import { Cat } from 'libs/cats/src/lib/cats.model';
-import { Dictionary } from '@ngrx/entity';
 
 const randomId = () => {
   // Math.random should be unique because of its seeding algorithm.
@@ -33,6 +32,7 @@ export class HomeComponent {
 
   constructor(public catFacade: CatsFacade) {
     this.cats = this.catFacade.allCats$;
+    this.catFacade.loadAll()
   }
 
   revealToggleCard(isNew) {
@@ -45,8 +45,7 @@ export class HomeComponent {
     this.catFacade.add({
       age: this.catAge.value,
       breed: this.catBreed.value,
-      name: this.catName.value,
-      id: randomId()
+      name: this.catName.value
     });
     this.isCardRevealed = false;
   }
