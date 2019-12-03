@@ -26,6 +26,6 @@ export class CatsService {
   }
 
   async updateOne(cat: Cat): Promise<Cat[]> {
-    return await this.catModel.updateOne(cat).exec();
+    return await this.catModel.findByIdAndUpdate({_id: cat._id}, cat).exec();
   }
 }

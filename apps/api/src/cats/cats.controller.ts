@@ -28,7 +28,7 @@ export class CatsController {
   }
 
   @Put(':id')
-  async updateById(@Param() params): Promise<Cat[]> {
-    return this.catsService.updateOne(params.cat);
+  async updateById(@Param() params, @Body() cat): Promise<Cat[]> {
+    return this.catsService.updateOne(cat);
   }
 }

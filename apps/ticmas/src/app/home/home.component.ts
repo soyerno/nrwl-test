@@ -4,18 +4,6 @@ import { CatsFacade } from 'libs/cats/src/lib/cats.facade';
 import { Observable } from 'rxjs';
 import { Cat } from 'libs/cats/src/lib/cats.model';
 
-const randomId = () => {
-  // Math.random should be unique because of its seeding algorithm.
-  // Convert it to base 36 (numbers + letters), and grab the first 9 characters
-  // after the decimal.
-  return (
-    '_' +
-    Math.random()
-      .toString(36)
-      .substr(2, 9)
-  );
-};
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -24,7 +12,8 @@ const randomId = () => {
 export class HomeComponent {
   isCardRevealed = false;
   isNew = true;
-  cats: Observable<Cat[]>
+  catId: string = null;
+  cats: Observable<Cat[]>;
 
   catName = new FormControl();
   catAge = new FormControl();
@@ -32,7 +21,7 @@ export class HomeComponent {
 
   constructor(public catFacade: CatsFacade) {
     this.cats = this.catFacade.allCats$;
-    this.catFacade.loadAll()
+    this.catFacade.loadAll();
   }
 
   revealToggleCard(isNew) {
@@ -49,8 +38,22 @@ export class HomeComponent {
     this.isCardRevealed = false;
   }
 
+  editCat(cat) {
+    this.isCardRevealed = true;
+    this.isNew = false;
+    this.catId = cat._id;
+    this.catAge.setValue(cat.age);
+    this.catName.setValue(cat.name);
+    this.catBreed.setValue(cat.breed);
+  }
+
   save() {
-    console.log(this.catAge.value, this.catBreed.value, this.catName.value);
+    this.catFacade.update({
+      _id: this.catId,
+      age: this.catAge.value,
+      breed: this.catBreed.value,
+      name: this.catName.value
+    });
     this.isCardRevealed = false;
   }
 }

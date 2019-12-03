@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 
 import { CatState } from './cats.reducer';
 import { catsQuery } from './cats.selectors';
-import { LoadCatsRequest, addCat, AddCatRequest, DeleteCatRequest } from './cats.actions';
+import { LoadCatsRequest, addCat, AddCatRequest, DeleteCatRequest, UpdateCatRequest } from './cats.actions';
 import { Cat } from './cats.model';
 
 @Injectable()
@@ -25,5 +25,9 @@ export class CatsFacade {
 
   delete(cat : Cat) {
     this.store.dispatch(new DeleteCatRequest(cat));
+  }
+
+  update(cat : Cat) {
+    this.store.dispatch(new UpdateCatRequest(cat));
   }
 }

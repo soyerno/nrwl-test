@@ -10,7 +10,7 @@ export enum CatsActionTypes {
   ProjectsLoaded = '[Projects] Data Loaded',
   AddProject = '[Projects] Add Data',
   ProjectAdded = '[Projects] Data Added',
-  UpdateProject = '[Projects] Update Data',
+  UpdateCatRequest = '[Cats] Update Data Request',
   ProjectUpdated = '[Projects] Data Updated',
   DeleteCatRequest = '[Cats] Delete Data Request',
   ProjectDeleted = '[Projects] Delete Data'
@@ -23,6 +23,11 @@ export class AddCatRequest implements Action {
 
 export class DeleteCatRequest implements Action {
   readonly type = CatsActionTypes.DeleteCatRequest;
+  constructor(public cat: Cat) { }
+}
+
+export class UpdateCatRequest implements Action {
+  readonly type = CatsActionTypes.UpdateCatRequest;
   constructor(public cat: Cat) { }
 }
 export class LoadCatsRequest implements Action {

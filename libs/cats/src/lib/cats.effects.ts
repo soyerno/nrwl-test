@@ -12,7 +12,9 @@ import {
   loadCats,
   LoadCatsRequest,
   deleteCat,
-  DeleteCatRequest
+  DeleteCatRequest,
+  UpdateCatRequest,
+  updateCat
   // DeleteProject,
   // LoadProjects,
   // UpdateProject,
@@ -23,6 +25,7 @@ import {
   // ProjectUpdated,
 } from './cats.actions';
 import { CatState } from './cats.reducer';
+import { Update } from '@ngrx/entity';
 
 @Injectable({ providedIn: 'root' })
 export class CatsEffects {
@@ -43,12 +46,27 @@ export class CatsEffects {
       run: (action: AddCatRequest, state: CatState) => {
         return this.catsService.add(action.cat).pipe(
           map((res: Cat) => {
-            console.log(res);
             return addCat({ cat: res });
           })
         );
       },
       onError: (action: AddCatRequest, error) => {
+        console.error('Error', error);
+      }
+    })
+  );
+
+  UpdateCat$ = createEffect(() =>
+    this.dataPersistence.pessimisticUpdate(CatsActionTypes.UpdateCatRequest, {
+      run: (action: UpdateCatRequest, state: CatState) => {
+        return this.catsService.update(action.cat).pipe(
+          map((res: Update<Cat>) => {
+            console.log(res)
+            return updateCat({ cat: res });
+          })
+        );
+      },
+      onError: (action: UpdateCatRequest, error) => {
         console.error('Error', error);
       }
     })
@@ -69,7 +87,6 @@ export class CatsEffects {
       run: (action: DeleteCatRequest, state: CatState) => {
         return this.catsService.delete(action.cat).pipe(
           map((id: string) => {
-            console.log(id);
             return deleteCat({ id });
           })
         );
@@ -79,15 +96,6 @@ export class CatsEffects {
       }
     })
   );
-  // @Effect()
-  // deleteProject$ = this.dataPersistence.pessimisticUpdate(ProjectsActionTypes.DeleteProject, {
-  //   run: (action: DeleteProject, state: ProjectsState) => {
-  //     return this.projectsService.delete(action.payload).pipe(map((res: Project) => new ProjectDeleted(res)))
-  //   },
-  //   onError: (action: DeleteProject, error) => {
-  //     console.error('Error', error);
-  //   }
-  // });
 
   constructor(
     private actions$: Actions,

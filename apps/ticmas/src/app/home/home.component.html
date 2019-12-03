@@ -23,7 +23,7 @@
               No cats available
             </p>
             <div *ngIf="(cats | async).length">
-              <ticmas-list [cats]="cats | async"></ticmas-list>
+              <ticmas-list (editCat)="editCat($event)" [cats]="cats | async"></ticmas-list>
             </div>
           </nb-card-body>
         </nb-card>

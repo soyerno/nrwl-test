@@ -1,5 +1,5 @@
 export interface Cat {
-  readonly _id?: number;
+  readonly _id?: string;
   name: string,
   age: number,
   breed: string,
