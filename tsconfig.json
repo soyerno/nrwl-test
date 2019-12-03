@@ -22,7 +22,8 @@
       "ticmas-auth": ["dist/ticmas-auth"],
       "ticmas-auth/*": ["dist/ticmas-auth/*"],
       "@ticmasworkspace/shell": ["libs/shell/src/index.ts"],
-      "@ticmasworkspace/auth": ["libs/auth/src/index.ts"]
+      "@ticmasworkspace/auth": ["libs/auth/src/index.ts"],
+      "@ticmasworkspace/cats": ["libs/cats/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

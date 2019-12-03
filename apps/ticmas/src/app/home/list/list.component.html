@@ -1,0 +1,8 @@
+<nb-list>
+  <nb-list-item *ngFor="let cat of cats">
+    <div class="cat-name">{{ cat.name }}</div>
+    <button class="btn-right" size="tiny" status="danger" nbButton>
+      Delete
+    </button>
+  </nb-list-item>
+</nb-list>

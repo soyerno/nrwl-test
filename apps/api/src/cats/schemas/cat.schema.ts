@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-export const RmSchema = new mongoose.Schema({
+export const CatSchema = new mongoose.Schema({
   name: String,
   age: Number,
   breed: String,

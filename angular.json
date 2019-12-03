@@ -365,6 +365,37 @@
           }
         }
       }
+    },
+    "cats": {
+      "projectType": "library",
+      "root": "libs/cats",
+      "sourceRoot": "libs/cats/src",
+      "prefix": "ticmasworkspace",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/cats/tsconfig.lib.json",
+              "libs/cats/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/cats/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/cats/jest.config.js",
+            "tsConfig": "libs/cats/tsconfig.spec.json",
+            "setupFile": "libs/cats/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

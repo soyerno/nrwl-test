@@ -5,11 +5,9 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { CoreModule } from '../core';
 import { SharedModule } from '../shared';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import * as fromCore from './+state/core.reducer';
-import { CoreEffects } from './+state/core.effects';
-import { CoreFacade } from './+state/core.facade';
+import { CatsModule } from 'libs/cats/src';
+import { CatsFacade } from 'libs/cats/src/lib/cats.facade';
+import { ListComponent } from './list/list.component';
 
 @NgModule({
   imports: [
@@ -17,10 +15,11 @@ import { CoreFacade } from './+state/core.facade';
     CoreModule,
     SharedModule,
     HomeRoutingModule,
-    StoreModule.forFeature(fromCore.CORE_FEATURE_KEY, fromCore.reducer),
-    EffectsModule.forFeature([CoreEffects])
+    CatsModule,
   ],
-  declarations: [HomeComponent],
-  providers: [CoreFacade]
+  providers:[
+    CatsFacade
+  ],
+  declarations: [HomeComponent, ListComponent],
 })
 export class HomeModule {}
