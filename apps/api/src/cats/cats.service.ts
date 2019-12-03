@@ -10,11 +10,22 @@ export class CatsService {
   async create(createCatDto: CreateCatDto): Promise<Cat> {
     const createdCat = new this.catModel(createCatDto);
     await createdCat.save();
-    console.log(createdCat)
     return createdCat;
   }
 
   async findAll(): Promise<Cat[]> {
     return await this.catModel.find().exec();
+  }
+
+  async findById(id: string): Promise<Cat[]> {
+    return await this.catModel.findById(id).exec();
+  }
+
+  async deleteOne(id: string): Promise<Cat[]> {
+    return await this.catModel.findByIdAndRemove(id).exec();
+  }
+
+  async updateOne(cat: Cat): Promise<Cat[]> {
+    return await this.catModel.updateOne(cat).exec();
   }
 }

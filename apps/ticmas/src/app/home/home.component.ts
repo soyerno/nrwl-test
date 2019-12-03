@@ -41,7 +41,6 @@ export class HomeComponent {
   }
 
   create() {
-    console.log(this.catAge.value, this.catBreed.value, this.catName.value);
     this.catFacade.add({
       age: this.catAge.value,
       breed: this.catBreed.value,

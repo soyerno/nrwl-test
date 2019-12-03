@@ -18,7 +18,7 @@ export const defaultDataServiceConfig: DefaultDataServiceConfig = {
   root: environment.serverUrl,
   entityHttpResourceUrls: {
     Cats: {
-      entityResourceUrl: '/cats',
+      entityResourceUrl: '/cats/',
       collectionResourceUrl: '/cats'
     }
   }

@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Cat } from 'libs/cats/src/lib/cats.model';
+import { CatsFacade } from 'libs/cats/src/lib/cats.facade';
 
 @Component({
   selector: 'ticmas-list',
@@ -11,9 +12,12 @@ export class ListComponent implements OnInit {
 
   @Input() cats: Cat[];
 
-  constructor() { }
+  constructor(public catFacade: CatsFacade) { }
 
   ngOnInit() {
   }
 
+  delete(cat: Cat){
+    this.catFacade.delete(cat)
+  }
 }

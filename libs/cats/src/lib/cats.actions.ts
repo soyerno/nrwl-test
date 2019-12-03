@@ -5,14 +5,14 @@ import { Cat } from './cats.model';
 
 export enum CatsActionTypes {
   ProjectSelected = '[Projects] Selected',
-  LoadCatsRequest = '[Cats] Load Cats Data',
-  AddCatRequest = '[Cats] Create Data',
+  LoadCatsRequest = '[Cats] Load Cats Data Request',
+  AddCatRequest = '[Cats] Create Data Request',
   ProjectsLoaded = '[Projects] Data Loaded',
   AddProject = '[Projects] Add Data',
   ProjectAdded = '[Projects] Data Added',
   UpdateProject = '[Projects] Update Data',
   ProjectUpdated = '[Projects] Data Updated',
-  DeleteProject = '[Projects] Delete Data',
+  DeleteCatRequest = '[Cats] Delete Data Request',
   ProjectDeleted = '[Projects] Delete Data'
 }
 
@@ -21,6 +21,10 @@ export class AddCatRequest implements Action {
   constructor(public cat: Cat) { }
 }
 
+export class DeleteCatRequest implements Action {
+  readonly type = CatsActionTypes.DeleteCatRequest;
+  constructor(public cat: Cat) { }
+}
 export class LoadCatsRequest implements Action {
   readonly type = CatsActionTypes.LoadCatsRequest;
   constructor() { }

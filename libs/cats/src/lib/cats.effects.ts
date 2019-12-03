@@ -10,7 +10,9 @@ import {
   CatsActionTypes,
   AddCatRequest,
   loadCats,
-  LoadCatsRequest
+  LoadCatsRequest,
+  deleteCat,
+  DeleteCatRequest
   // DeleteProject,
   // LoadProjects,
   // UpdateProject,
@@ -53,16 +55,6 @@ export class CatsEffects {
   );
 
   // @Effect()
-  // addProject$ = this.dataPersistence.pessimisticUpdate(addCat.type, {
-  //   run: (action: addCat.type, state: CatState) => {
-  //     return this.catsService.add(action.payload).pipe(map((res: Cat) => addCat({cat: res})))
-  //   },
-  //   onError: (action: addCat, error) => {
-  //     console.error('Error', error);
-  //   }
-  // });
-
-  // @Effect()
   // updateProject$ = this.dataPersistence.pessimisticUpdate(ProjectsActionTypes.UpdateProject, {
   //   run: (action: UpdateProject, state: ProjectsState) => {
   //     return this.projectsService.update(action.payload).pipe(map((res: Project) => new ProjectUpdated(res)))
@@ -72,6 +64,21 @@ export class CatsEffects {
   //   }
   // });
 
+  DeleteCat$ = createEffect(() =>
+    this.dataPersistence.pessimisticUpdate(CatsActionTypes.DeleteCatRequest, {
+      run: (action: DeleteCatRequest, state: CatState) => {
+        return this.catsService.delete(action.cat).pipe(
+          map((id: string) => {
+            console.log(id);
+            return deleteCat({ id });
+          })
+        );
+      },
+      onError: (action: DeleteCatRequest, error) => {
+        console.error('Error', error);
+      }
+    })
+  );
   // @Effect()
   // deleteProject$ = this.dataPersistence.pessimisticUpdate(ProjectsActionTypes.DeleteProject, {
   //   run: (action: DeleteProject, state: ProjectsState) => {
