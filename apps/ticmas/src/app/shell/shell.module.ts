@@ -6,11 +6,13 @@ import { ShellComponent } from './shell.component';
 import { HeaderComponent } from './header/header.component';
 
 import { NbThemeModule, NbLayoutModule } from '@nebular/theme';
+import { SharedModule } from '../shared';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
+    SharedModule,
     NbThemeModule.forRoot({ name: 'cosmic' }),
     NbLayoutModule,
   ],

@@ -17,6 +17,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { AuthModule, AuthenticationGuard } from '../../../../libs/auth/src/lib/auth'
+import { NbMenuModule } from '@nebular/theme';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,7 +36,7 @@ import { AuthModule, AuthenticationGuard } from '../../../../libs/auth/src/lib/a
     HomeModule,
     ShellModule,
     BrowserAnimationsModule,
-    NbEvaIconsModule,
+    NbMenuModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AppRoutingModule,
   ],

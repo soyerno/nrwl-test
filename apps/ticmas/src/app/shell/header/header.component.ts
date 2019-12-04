@@ -1,31 +1,101 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  NbMediaBreakpointsService,
+  NbMenuService,
+  NbSidebarService,
+  NbThemeService,
+  NbMenuItem
+} from '@nebular/theme';
+
+// import { UserData } from '../../../@core/data/users';
+// import { LayoutService } from '../../../@core/utils';
+import { map, takeUntil, filter } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { NbAuthService } from '@nebular/auth';
 
 @Component({
   selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  templateUrl: './header.component.html'
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
+  private destroy$: Subject<void> = new Subject<void>();
+  userPictureOnly = false;
+  user: any;
 
-  menuHidden = true;
+  currentTheme = 'default';
 
-  constructor(private router: Router) { }
+  userMenu = [
+    { title: 'Profile' },
+    { title: 'Log out', data: { id: 'logout' } }
+  ];
 
-  ngOnInit() { }
+  constructor(
+    // private sidebarService: NbSidebarService,
+    private menuService: NbMenuService,
+    private themeService: NbThemeService,
+    // private userService: UserData,
+    // private layoutService: LayoutService,
+    private nbMenuService: NbMenuService,
+    private nbAuthService: NbAuthService,
+    private breakpointService: NbMediaBreakpointsService
+  ) {}
 
-  toggleMenu() {
-    this.menuHidden = !this.menuHidden;
+  ngOnInit() {
+    this.currentTheme = this.themeService.currentTheme;
+
+    this.nbMenuService
+      .onItemClick()
+      .pipe(filter(({ tag }) => tag === 'headerUserMemu'))
+      .subscribe((event: any) => {
+        console.log(event)
+        if (event.item.data.id === 'logout') {
+          this.nbAuthService.logout('email');
+        }
+      });
+
+    // this.userService.getUsers()
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe((users: any) => this.user = users.nick);
+
+    const { xl } = this.breakpointService.getBreakpointsMap();
+    this.themeService
+      .onMediaQueryChange()
+      .pipe(
+        map(([, currentBreakpoint]) => currentBreakpoint.width < xl),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(
+        (isLessThanXl: boolean) => (this.userPictureOnly = isLessThanXl)
+      );
+
+    this.themeService
+      .onThemeChange()
+      .pipe(
+        map(({ name }) => name),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(themeName => (this.currentTheme = themeName));
   }
 
-  // logout() {
-  //   this.authenticationService.logout()
-  //     .subscribe(() => this.router.navigate(['/login'], { replaceUrl: true }));
-  // }
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
-  // get username(): string | null {
-  //   const credentials = this.credentialsService.credentials;
-  //   return credentials ? credentials.username : null;
-  // }
+  changeTheme(themeName: string) {
+    this.themeService.changeTheme(themeName);
+  }
 
+  toggleSidebar(): boolean {
+    // this.sidebarService.toggle(true, 'menu-sidebar');
+    // this.layoutService.changeLayoutSize();
+
+    return false;
+  }
+
+  navigateHome() {
+    this.menuService.navigateHome();
+    return false;
+  }
 }
