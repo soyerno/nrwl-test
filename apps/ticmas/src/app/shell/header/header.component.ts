@@ -11,7 +11,7 @@ import {
 // import { LayoutService } from '../../../@core/utils';
 import { map, takeUntil, filter } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { NbAuthService } from '@nebular/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -36,8 +36,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private themeService: NbThemeService,
     // private userService: UserData,
     // private layoutService: LayoutService,
+    private router: Router,
     private nbMenuService: NbMenuService,
-    private nbAuthService: NbAuthService,
     private breakpointService: NbMediaBreakpointsService
   ) {}
 
@@ -50,7 +50,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe((event: any) => {
         console.log(event)
         if (event.item.data.id === 'logout') {
-          this.nbAuthService.logout('email');
+          this.router.navigate(['/', 'auth', 'logout']);
         }
       });
 

@@ -1,0 +1,110 @@
+<div class="card-row">
+  <div class="card-col">
+    <nb-reveal-card
+      size="large"
+      [showToggleButton]="false"
+      [revealed]="isCardRevealed"
+    >
+      <nb-card-front>
+        <nb-card accent="info">
+          <nb-card-header>
+            {{ entityName }}
+            <button
+              nbButton
+              class="btn-right"
+              size="tiny"
+              (click)="revealToggleCard(true)"
+            >
+              Add
+            </button>
+          </nb-card-header>
+          <nb-card-body>
+            <p *ngIf="!items.length">
+              No {{ entityName }} available
+              <br /><br /><br /><br /><br /><br /><br /><br />
+            </p>
+
+            <div *ngIf="items.length">
+              <ticmas-list
+                (edit)="editItem($event)"
+                (delete)="deleteItem($event)"
+                [items]="items"
+              ></ticmas-list>
+            </div>
+          </nb-card-body>
+        </nb-card>
+      </nb-card-front>
+      <nb-card-back>
+        <nb-card accent="primary" status="info" class="full-h">
+          <nb-card-header *ngIf="isNew"
+            >Add {{ entityName }}
+            <button
+              nbButton
+              class="btn-right"
+              size="tiny"
+              status="danger"
+              (click)="revealToggleCard(true)"
+            >
+              Cancel
+            </button>
+          </nb-card-header>
+          <nb-card-header *ngIf="!isNew"
+            >Edit {{ entityName }}
+            <button
+              nbButton
+              class="btn-right"
+              size="tiny"
+              status="danger"
+              (click)="revealToggleCard(false)"
+            >
+              Cancel
+            </button>
+          </nb-card-header>
+          <nb-card-body class="example-items-col">
+            <app-dynamic-form
+              *ngIf="form"
+              [form]="form"
+              [inputs]="formStructure"
+              (save)="formEmitter($event)"
+            ></app-dynamic-form>
+            <!-- <div [formGroup]="formData"> -->
+            <!-- <div class="" *ngFor="let control of formData.controls">
+                <input [formControlName]="street" />
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  shape="rectangle"
+                  placeholder="Name"
+                  [formControl]="catName"
+                />
+                <br /><br />
+              </div> -->
+            <!-- </div> -->
+
+            <!-- <button
+              *ngIf="isNew"
+              nbButton
+              class="btn-right"
+              size="tiny"
+              status="danger"
+              (click)="create(false)"
+            >
+              Create
+            </button>
+            <button
+              *ngIf="!isNew"
+              nbButton
+              class="btn-right"
+              size="tiny"
+              status="danger"
+              (click)="save(false)"
+            >
+              Save
+            </button> -->
+          </nb-card-body>
+        </nb-card>
+      </nb-card-back>
+    </nb-reveal-card>
+  </div>
+</div>

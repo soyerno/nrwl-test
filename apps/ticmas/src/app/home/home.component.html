@@ -1,120 +1,24 @@
 <div class="container-fluid full-h">
   <div class="jumbotron text-center full-h">
     <h1>
-      <span translate>Cats Page</span>
+      <span translate>Home Page</span>
     </h1>
-    <div class="card-row">
-      <div class="card-col">
-        <nb-reveal-card
-          size="large"
-          [showToggleButton]="false"
-          [revealed]="isCardRevealed"
-        >
-          <nb-card-front>
-            <nb-card accent="info">
-              <nb-card-header>
-                Some cats
-                <button
-                  nbButton
-                  class="btn-right"
-                  size="tiny"
-                  (click)="revealToggleCard(true)"
-                >
-                  Add
-                </button>
-              </nb-card-header>
-              <nb-card-body>
-                <p *ngIf="!(cats | async).length">
-                  No cats available
-                </p>
-                <div *ngIf="(cats | async).length">
-                  <ticmas-list
-                    (editCat)="editCat($event)"
-                    [cats]="cats | async"
-                  ></ticmas-list>
-                </div>
-              </nb-card-body>
-            </nb-card>
-          </nb-card-front>
-          <nb-card-back>
-            <nb-card accent="primary" status="info" class="full-h">
-              <nb-card-header *ngIf="isNew"
-                >Add Cat
-                <button
-                  nbButton
-                  class="btn-right"
-                  size="tiny"
-                  status="danger"
-                  (click)="revealToggleCard(true)"
-                >
-                  Cancel
-                </button>
-              </nb-card-header>
-              <nb-card-header *ngIf="!isNew"
-                >Edit Cat
-                <button
-                  nbButton
-                  class="btn-right"
-                  size="tiny"
-                  status="danger"
-                  (click)="revealToggleCard(false)"
-                >
-                  Cancel
-                </button>
-              </nb-card-header>
-              <nb-card-body class="example-items-col">
-                <input
-                  type="text"
-                  nbInput
-                  fullWidth
-                  shape="rectangle"
-                  placeholder="Name"
-                  [formControl]="catName"
-                />
-                <br /><br />
-                <input
-                  type="text"
-                  nbInput
-                  fullWidth
-                  shape="rectangle"
-                  placeholder="Age"
-                  [formControl]="catAge"
-                />
-                <br /><br />
-                <input
-                  type="text"
-                  nbInput
-                  fullWidth
-                  shape="rectangle"
-                  placeholder="Breed"
-                  [formControl]="catBreed"
-                />
-                <br /><br />
-                <button
-                  *ngIf="isNew"
-                  nbButton
-                  class="btn-right"
-                  size="tiny"
-                  status="danger"
-                  (click)="create(false)"
-                >
-                  Create
-                </button>
-                <button
-                  *ngIf="!isNew"
-                  nbButton
-                  class="btn-right"
-                  size="tiny"
-                  status="danger"
-                  (click)="save(false)"
-                >
-                  Save
-                </button>
-              </nb-card-body>
-            </nb-card>
-          </nb-card-back>
-        </nb-reveal-card>
-      </div>
-    </div>
+    <app-crud
+      [items]="cats | async"
+      [formStructure]="catFormStructure"
+      [entityName]="'Cats'"
+      (create)="createCat($event)"
+      (update)="updateCat($event)"
+      (delete)="deleteCat($event)"
+    ></app-crud>
+    <app-crud
+      [items]="owners | async"
+      [formStructure]="ownersFormStructure"
+      [entityName]="'Owners'"
+      (create)="createOwner($event)"
+      (update)="updateOwner($event)"
+      (delete)="deleteOwner($event)"
+    ></app-crud>
+    <br>
   </div>
 </div>

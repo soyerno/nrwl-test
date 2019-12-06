@@ -1,59 +1,50 @@
 import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { CatsFacade } from 'libs/cats/src/lib/cats.facade';
+import { CatsFacade, catsFormStructure, Cat } from '@ticmasworkspace/cats';
 import { Observable } from 'rxjs';
-import { Cat } from 'libs/cats/src/lib/cats.model';
-
+import { OwnersFacade, ownersFormStructure, Owner } from '@ticmasworkspace/owners';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  isCardRevealed = false;
-  isNew = true;
-  catId: string = null;
   cats: Observable<Cat[]>;
+  catFormStructure: any = catsFormStructure();
 
-  catName = new FormControl();
-  catAge = new FormControl();
-  catBreed = new FormControl();
+  owners: Observable<Owner[]>;
+  ownersFormStructure: any = ownersFormStructure();
 
-  constructor(public catFacade: CatsFacade) {
+  constructor(
+    public catFacade: CatsFacade,
+    public ownerFacade: OwnersFacade
+    ) {
     this.cats = this.catFacade.allCats$;
     this.catFacade.loadAll();
+    this.owners = this.ownerFacade.allOwners$;
+    this.ownerFacade.loadAll();
   }
 
-  revealToggleCard(isNew) {
-    this.isCardRevealed = !this.isCardRevealed;
-    this.isNew = isNew;
+  createCat($event) {
+    this.catFacade.add($event);
   }
 
-  create() {
-    this.catFacade.add({
-      age: this.catAge.value,
-      breed: this.catBreed.value,
-      name: this.catName.value
-    });
-    this.isCardRevealed = false;
+  updateCat($event) {
+    this.catFacade.update($event);
   }
 
-  editCat(cat) {
-    this.isCardRevealed = true;
-    this.isNew = false;
-    this.catId = cat._id;
-    this.catAge.setValue(cat.age);
-    this.catName.setValue(cat.name);
-    this.catBreed.setValue(cat.breed);
+  deleteCat($event) {
+    this.catFacade.delete($event);
   }
 
-  save() {
-    this.catFacade.update({
-      _id: this.catId,
-      age: this.catAge.value,
-      breed: this.catBreed.value,
-      name: this.catName.value
-    });
-    this.isCardRevealed = false;
+  createOwner($event) {
+    this.ownerFacade.add($event);
+  }
+
+  updateOwner($event) {
+    this.ownerFacade.update($event);
+  }
+
+  deleteOwner($event) {
+    this.ownerFacade.update($event);
   }
 }

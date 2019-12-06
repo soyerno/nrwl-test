@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { StoreModule } from '@ngrx/store';
-import { entityConfig, CatsDataServiceConfig } from './entity-metadata';
+import { entityConfig, OwnersDataServiceConfig } from './entity-metadata';
 import { EntityDataModule, DefaultDataServiceConfig } from '@ngrx/data';
-import { CatsFacade } from './cats.facade';
-import * as fromCats from './cats.reducer';
+import { OwnersFacade } from './owners.facade';
+import * as fromOwners from './owners.reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { CatsEffects } from './cats.effects';
+import { OwnersEffects } from './owners.effects';
 import { NxModule } from '@nrwl/nx';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NbAuthModule, NbAuthJWTInterceptor, NB_AUTH_TOKEN_INTERCEPTOR_FILTER } from '@nebular/auth';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CatsService } from './cats.service';
+import { OwnersService } from './owners.service';
 
 @NgModule({
   imports: [
@@ -24,13 +25,13 @@ import { CatsService } from './cats.service';
     // RouterModule.forChild([
     //   /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
     // ]),
-    EffectsModule.forFeature([CatsEffects]),
-    StoreModule.forFeature('cats', fromCats.reducer)
+    EffectsModule.forFeature([OwnersEffects]),
+    StoreModule.forFeature('owners', fromOwners.reducer)
   ],
   providers: [
-    CatsFacade,
-    CatsService,
-    { provide: DefaultDataServiceConfig, useValue: CatsDataServiceConfig },
+    OwnersFacade,
+    OwnersService,
+    // { provide: DefaultDataServiceConfig, useValue: OwnersDataServiceConfig },
     {
       provide: NB_AUTH_TOKEN_INTERCEPTOR_FILTER,
       useValue: function() {
@@ -44,4 +45,4 @@ import { CatsService } from './cats.service';
     }
   ]
 })
-export class CatsModule {}
+export class OwnersModule {}

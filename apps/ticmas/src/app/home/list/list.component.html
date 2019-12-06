@@ -1,8 +1,8 @@
-<nb-list class="cat-list">
-  <nb-list-item *ngFor="let cat of cats">
-    <div class="cat-name">{{ cat.name }}</div>
+<nb-list class="item-list">
+  <nb-list-item *ngFor="let item of items">
+    <div class="item-name">{{ item.name }}</div>
     <button
-      (click)="edit(cat)"
+      (click)="editItem(item)"
       class="btn-list"
       size="tiny"
       status="warning"
@@ -11,7 +11,7 @@
       Edit
     </button>
     <button
-      (click)="delete(cat)"
+      (click)="deleteItem(item)"
       class="btn-list"
       size="tiny"
       status="danger"

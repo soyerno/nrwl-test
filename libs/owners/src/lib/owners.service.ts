@@ -3,11 +3,11 @@ import {
   EntityCollectionServiceBase,
   EntityCollectionServiceElementsFactory
 } from '@ngrx/data';
-import { Cat } from './cats.model';
+import { Owner } from './owners.model';
 
 @Injectable()
-export class CatsService extends EntityCollectionServiceBase<Cat> {
+export class OwnersService extends EntityCollectionServiceBase<Owner> {
   constructor(serviceElementsFactory: EntityCollectionServiceElementsFactory) {
-    super('Cats', serviceElementsFactory);
+    super('Owners', serviceElementsFactory);
   }
 }

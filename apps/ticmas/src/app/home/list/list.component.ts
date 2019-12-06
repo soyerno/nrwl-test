@@ -1,6 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy, Output, Input, EventEmitter } from '@angular/core';
-import { Cat } from 'libs/cats/src/lib/cats.model';
-import { CatsFacade } from 'libs/cats/src/lib/cats.facade';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Output,
+  Input,
+  EventEmitter
+} from '@angular/core';
 
 @Component({
   selector: 'ticmas-list',
@@ -8,22 +13,18 @@ import { CatsFacade } from 'libs/cats/src/lib/cats.facade';
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ListComponent implements OnInit {
-
-  @Input() cats: Cat[];
+export class ListComponent {
+  @Input() items: any[];
   @Output()
-  editCat: EventEmitter<Cat> = new EventEmitter();
+  edit: EventEmitter<any> = new EventEmitter();
+  @Output()
+  delete: EventEmitter<any> = new EventEmitter();
 
-  constructor(public catFacade: CatsFacade) { }
-
-  ngOnInit() {
+  editItem(item) {
+    this.edit.emit(item);
   }
 
-  edit(cat: Cat){
-    this.editCat.emit(cat);
-  }
-
-  delete(cat: Cat){
-    this.catFacade.delete(cat)
+  deleteItem(item) {
+    this.delete.emit(item);
   }
 }

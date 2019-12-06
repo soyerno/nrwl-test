@@ -371,6 +371,37 @@
           "styleext": "scss"
         }
       }
+    },
+    "owners": {
+      "projectType": "library",
+      "root": "libs/owners",
+      "sourceRoot": "libs/owners/src",
+      "prefix": "ticmasworkspace",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/owners/tsconfig.lib.json",
+              "libs/owners/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/owners/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/owners/jest.config.js",
+            "tsConfig": "libs/owners/tsconfig.spec.json",
+            "setupFile": "libs/owners/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

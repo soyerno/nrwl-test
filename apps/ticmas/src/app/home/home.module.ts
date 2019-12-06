@@ -5,9 +5,16 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { CoreModule } from '../core';
 import { SharedModule } from '../shared';
-import { CatsModule } from 'libs/cats/src';
-import { CatsFacade } from 'libs/cats/src/lib/cats.facade';
+import { CatsModule, CatsFacade } from '@ticmasworkspace/cats';
+import { OwnersModule, OwnersFacade } from '@ticmasworkspace/owners';
 import { ListComponent } from './list/list.component';
+import { CrudComponent } from './crud/crud.component';
+import { InputControlService } from './dynamic-form/input-control.service';
+import { DynamicFormInputComponent } from './dynamic-form/dynamic-input/dynamic-input.component';
+import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
+import { DefaultDataServiceConfig } from '@ngrx/data';
+import { CatsDataServiceConfig } from '@ticmasworkspace/cats';
+import { OwnersDataServiceConfig } from '@ticmasworkspace/owners';
 
 @NgModule({
   imports: [
@@ -16,10 +23,31 @@ import { ListComponent } from './list/list.component';
     SharedModule,
     HomeRoutingModule,
     CatsModule,
+    OwnersModule
   ],
-  providers:[
-    CatsFacade
+  providers: [
+    CatsFacade,
+    OwnersFacade,
+    InputControlService,
+    {
+      provide: DefaultDataServiceConfig,
+      useValue: {
+        ...CatsDataServiceConfig,
+        ...{
+          entityHttpResourceUrls: {
+            ...OwnersDataServiceConfig.entityHttpResourceUrls,
+            ...CatsDataServiceConfig.entityHttpResourceUrls
+          }
+        }
+      }
+    }
   ],
-  declarations: [HomeComponent, ListComponent],
+  declarations: [
+    HomeComponent,
+    ListComponent,
+    CrudComponent,
+    DynamicFormComponent,
+    DynamicFormInputComponent
+  ]
 })
 export class HomeModule {}

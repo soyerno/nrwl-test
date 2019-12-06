@@ -48,12 +48,6 @@ import { AuthRoutingModule } from './auth-routing.module';
   declarations: [],
   providers: [
     {
-      provide: NB_AUTH_TOKEN_INTERCEPTOR_FILTER,
-      useValue: function() {
-        return false;
-      }
-    },
-    {
       provide: HTTP_INTERCEPTORS,
       useClass: NbAuthJWTInterceptor,
       multi: true

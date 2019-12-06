@@ -1,0 +1,24 @@
+<div>
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+    <div *ngFor="let input of inputs" class="form-row">
+      <app-input [input]="input" [form]="form"></app-input>
+    </div>
+
+    <div class="form-row">
+      <button
+        nbButton
+        class="btn-right"
+        size="tiny"
+        status="primary"
+        type="submit"
+        [disabled]="!form.valid"
+      >
+        Save
+      </button>
+    </div>
+  </form>
+
+  <div *ngIf="payLoad" class="form-row">
+    <strong>Saved the following values</strong><br />{{ payLoad }}
+  </div>
+</div>
