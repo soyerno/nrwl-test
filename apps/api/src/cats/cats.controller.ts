@@ -21,7 +21,7 @@ export class CatsController {
 
   async validateOwnership(elementId, userId) {
     const cat: Cat = await this.catsService.findById(elementId);
-    if (cat.owner != userId) {
+    if (cat.administrator != userId) {
       throw new UnauthorizedException();
     }
     return true;
@@ -30,7 +30,7 @@ export class CatsController {
   @UseGuards(AuthGuard('jwt'))
   @Post()
   async create(@Req() req, @Body() createCatDto: CreateCatDto) {
-    createCatDto.owner = req.user.userId;
+    createCatDto.administrator = req.user.userId;
     return this.catsService.create(createCatDto);
   }
 
@@ -42,7 +42,7 @@ export class CatsController {
 
   @UseGuards(AuthGuard('jwt'))
   @Get(':id')
-  async getById(@Req() req, @Param() params): Promise<Cat[]> {
+  async getById(@Req() req, @Param() params): Promise<Cat> {
     if (await this.validateOwnership(params.id, req.user.userId)) {
       return this.catsService.findById(params.id);
     }
@@ -50,7 +50,7 @@ export class CatsController {
 
   @UseGuards(AuthGuard('jwt'))
   @Delete(':id')
-  async deleteById(@Req() req, @Param() params): Promise<Cat[]> {
+  async deleteById(@Req() req, @Param() params): Promise<Cat> {
     if (await this.validateOwnership(params.id, req.user.userId)) {
       return this.catsService.deleteOne(params.id);
     }
@@ -58,7 +58,7 @@ export class CatsController {
 
   @UseGuards(AuthGuard('jwt'))
   @Put(':id')
-  async updateById(@Req() req, @Param() params, @Body() cat): Promise<Cat[]> {
+  async updateById(@Req() req, @Param() params, @Body() cat): Promise<Cat> {
     if (await this.validateOwnership(params.id, req.user.userId)) {
       return this.catsService.updateOne(cat);
     }

@@ -17,8 +17,8 @@ export class CatsService {
   //   return await this.catModel.find().exec();
   // }
 
-  async findAllByUser(userId: string): Promise<Cat> {
-    return await this.catModel.find({ owner: userId }).exec();
+  async findAllByUser(userId: string): Promise<Cat[]> {
+    return await this.catModel.find({ administrator: userId }).exec();
   }
 
   async findById(id: string): Promise<Cat> {

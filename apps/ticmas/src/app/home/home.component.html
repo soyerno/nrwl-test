@@ -11,14 +11,15 @@
       (update)="updateCat($event)"
       (delete)="deleteCat($event)"
     ></app-crud>
-    <!-- <app-crud
+
+    <app-crud
       [items]="owners | async"
-      [formStructure]="ownersFormStructure"
+      [formStructure]="ownersFormStructure$ | async"
       [entityName]="'Owners'"
       (create)="createOwner($event)"
       (update)="updateOwner($event)"
       (delete)="deleteOwner($event)"
-    ></app-crud> -->
-    <br>
+    ></app-crud>
+    <br />
   </div>
 </div>

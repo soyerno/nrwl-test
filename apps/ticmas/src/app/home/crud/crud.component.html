@@ -21,7 +21,6 @@
           <nb-card-body>
             <p *ngIf="!items.length">
               No {{ entityName }} available
-              <br /><br /><br /><br /><br /><br /><br /><br />
             </p>
 
             <div *ngIf="items.length">
@@ -67,41 +66,6 @@
               [inputs]="formStructure"
               (save)="formEmitter($event)"
             ></app-dynamic-form>
-            <!-- <div [formGroup]="formData"> -->
-            <!-- <div class="" *ngFor="let control of formData.controls">
-                <input [formControlName]="street" />
-                <input
-                  type="text"
-                  nbInput
-                  fullWidth
-                  shape="rectangle"
-                  placeholder="Name"
-                  [formControl]="catName"
-                />
-                <br /><br />
-              </div> -->
-            <!-- </div> -->
-
-            <!-- <button
-              *ngIf="isNew"
-              nbButton
-              class="btn-right"
-              size="tiny"
-              status="danger"
-              (click)="create(false)"
-            >
-              Create
-            </button>
-            <button
-              *ngIf="!isNew"
-              nbButton
-              class="btn-right"
-              size="tiny"
-              status="danger"
-              (click)="save(false)"
-            >
-              Save
-            </button> -->
           </nb-card-body>
         </nb-card>
       </nb-card-back>

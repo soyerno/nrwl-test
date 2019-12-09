@@ -1,0 +1,9 @@
+.btn-right{
+  float: right;
+}
+
+nb-card-back, nb-card-back > nb-card {
+  flex: 1;
+  height: 100%;
+  min-height: 100%;
+}

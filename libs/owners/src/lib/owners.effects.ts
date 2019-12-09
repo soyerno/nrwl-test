@@ -26,6 +26,7 @@ import {
 } from './owners.actions';
 import { OwnerState } from './owners.reducer';
 import { Update } from '@ngrx/entity';
+import { NbToastrService } from '@nebular/theme';
 
 @Injectable({ providedIn: 'root' })
 export class OwnersEffects {
@@ -44,6 +45,9 @@ export class OwnersEffects {
   AddOwner$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(OwnersActionTypes.AddOwnerRequest, {
       run: (action: AddOwnerRequest, state: OwnerState) => {
+        this.toastrService.show('Owner Created', `Request success`, {
+          status: 'success'
+        });
         return this.ownersService.add(action.owner).pipe(
           map((res: Owner) => {
             return addOwner({ owner: res });
@@ -59,6 +63,9 @@ export class OwnersEffects {
   UpdateOwner$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(OwnersActionTypes.UpdateOwnerRequest, {
       run: (action: UpdateOwnerRequest, state: OwnerState) => {
+        this.toastrService.show('Owner Updated', `Request success`, {
+          status: 'success'
+        });
         return this.ownersService.update(action.owner).pipe(
           map((res: any) => {
             return updateOwner({ owner: res });
@@ -84,6 +91,9 @@ export class OwnersEffects {
   DeleteOwner$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(OwnersActionTypes.DeleteOwnerRequest, {
       run: (action: DeleteOwnerRequest, state: OwnerState) => {
+        this.toastrService.show('Owner Deleted', `Request success`, {
+          status: 'success'
+        });
         return this.ownersService.delete(action.owner).pipe(
           map((id: string) => {
             return deleteOwner({ id });
@@ -99,6 +109,7 @@ export class OwnersEffects {
   constructor(
     private actions$: Actions,
     private dataPersistence: DataPersistence<OwnerState>,
-    private ownersService: OwnersService
+    private ownersService: OwnersService,
+    private toastrService: NbToastrService
   ) {}
 }

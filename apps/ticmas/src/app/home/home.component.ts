@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
 import { CatsFacade, catsFormStructure, Cat } from '@ticmasworkspace/cats';
-import { Observable } from 'rxjs';
-import { OwnersFacade, ownersFormStructure, Owner } from '@ticmasworkspace/owners';
+import { Observable, of } from 'rxjs';
+import {
+  OwnersFacade,
+  ownersFormStructure,
+  Owner
+} from '@ticmasworkspace/owners';
+import { map, tap } from 'rxjs/operators';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -12,16 +17,27 @@ export class HomeComponent {
   catFormStructure: any = catsFormStructure();
 
   owners: Observable<Owner[]>;
-  ownersFormStructure: any = ownersFormStructure();
+  ownersFormStructure$: Observable<any>;
 
-  constructor(
-    public catFacade: CatsFacade,
-    public ownerFacade: OwnersFacade
-    ) {
+  constructor(public catFacade: CatsFacade, public ownerFacade: OwnersFacade) {
     this.cats = this.catFacade.allCats$;
     this.catFacade.loadAll();
     this.owners = this.ownerFacade.allOwners$;
     this.ownerFacade.loadAll();
+
+    this.ownersFormStructure$ = this.cats.pipe(
+      map(cats => {
+        let form = ownersFormStructure().map(input => {
+          if (input.key === 'cats') {
+            input.options = cats.map(cat => {
+              return { key: cat._id, value: cat.name };
+            });
+          }
+          return input;
+        });
+        return form;
+      })
+    );
   }
 
   createCat($event) {
