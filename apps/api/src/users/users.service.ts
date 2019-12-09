@@ -16,14 +16,9 @@ export class UsersService {
       },
       {
         userId: 2,
-        email: 'chris',
-        password: 'secret',
-      },
-      {
-        userId: 3,
-        email: 'maria',
-        password: 'guess',
-      },
+        email: 'mcandio@vi-datec.com',
+        password: '1234',
+      }
     ];
   }
 

@@ -32,7 +32,6 @@ const catReducer = createReducer(
     return adapter.upsertMany(cats, state);
   }),
   on(CatActions.updateCat, (state, { cat }) => {
-    console.log(cat);
     return adapter.updateOne({ id: cat._id, changes: cat }, state);
   }),
   on(CatActions.updateCats, (state, { cats }) => {

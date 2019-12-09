@@ -4,6 +4,9 @@ export class CreateCatDto {
   @IsString()
   readonly name: string;
 
+  @IsString()
+  owner: string;
+
   @IsInt()
   readonly age: number;
 

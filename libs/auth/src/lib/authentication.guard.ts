@@ -14,8 +14,8 @@ export class AuthenticationGuard implements CanActivate {
     return this.authService.isAuthenticated()
       .pipe(
         tap(authenticated => {
-          console.log(authenticated)
           if (!authenticated) {
+            localStorage.removeItem('auth_app_token');
             this.router.navigate(['auth/login']);
           }
         }),

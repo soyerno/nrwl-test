@@ -41,7 +41,6 @@ export class CrudComponent implements OnInit {
   }
 
   saveItem(item) {
-    console.log(item);
     this.update.emit(item);
     this.isCardRevealed = false;
   }

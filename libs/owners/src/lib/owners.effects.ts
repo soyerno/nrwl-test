@@ -61,7 +61,6 @@ export class OwnersEffects {
       run: (action: UpdateOwnerRequest, state: OwnerState) => {
         return this.ownersService.update(action.owner).pipe(
           map((res: any) => {
-            console.log(res)
             return updateOwner({ owner: res });
           })
         );

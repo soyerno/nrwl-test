@@ -26,6 +26,7 @@ import {
 } from './cats.actions';
 import { CatState } from './cats.reducer';
 import { Update } from '@ngrx/entity';
+import { NbToastrService } from '@nebular/theme';
 
 @Injectable({ providedIn: 'root' })
 export class CatsEffects {
@@ -44,6 +45,9 @@ export class CatsEffects {
   AddCat$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(CatsActionTypes.AddCatRequest, {
       run: (action: AddCatRequest, state: CatState) => {
+        this.toastrService.show('Cat Created', `Request success`, {
+          status: 'success'
+        });
         return this.catsService.add(action.cat).pipe(
           map((res: Cat) => {
             return addCat({ cat: res });
@@ -59,9 +63,11 @@ export class CatsEffects {
   UpdateCat$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(CatsActionTypes.UpdateCatRequest, {
       run: (action: UpdateCatRequest, state: CatState) => {
+        this.toastrService.show('Cat Updated', `Request success`, {
+          status: 'success'
+        });
         return this.catsService.update(action.cat).pipe(
           map((res: any) => {
-            console.log(res)
             return updateCat({ cat: res });
           })
         );
@@ -85,6 +91,9 @@ export class CatsEffects {
   DeleteCat$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(CatsActionTypes.DeleteCatRequest, {
       run: (action: DeleteCatRequest, state: CatState) => {
+        this.toastrService.show('Cat Deleted', `Request success`, {
+          status: 'success'
+        });
         return this.catsService.delete(action.cat).pipe(
           map((id: string) => {
             return deleteCat({ id });
@@ -100,6 +109,7 @@ export class CatsEffects {
   constructor(
     private actions$: Actions,
     private dataPersistence: DataPersistence<CatState>,
-    private catsService: CatsService
+    private catsService: CatsService,
+    private toastrService: NbToastrService
   ) {}
 }

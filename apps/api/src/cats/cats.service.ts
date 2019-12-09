@@ -13,19 +13,25 @@ export class CatsService {
     return createdCat;
   }
 
-  async findAll(): Promise<Cat[]> {
-    return await this.catModel.find().exec();
+  // async findAll(): Promise<Cat[]> {
+  //   return await this.catModel.find().exec();
+  // }
+
+  async findAllByUser(userId: string): Promise<Cat> {
+    return await this.catModel.find({ owner: userId }).exec();
   }
 
-  async findById(id: string): Promise<Cat[]> {
+  async findById(id: string): Promise<Cat> {
     return await this.catModel.findById(id).exec();
   }
 
-  async deleteOne(id: string): Promise<Cat[]> {
+  async deleteOne(id: string): Promise<Cat> {
     return await this.catModel.findByIdAndRemove(id).exec();
   }
 
-  async updateOne(cat: Cat): Promise<Cat[]> {
-    return await this.catModel.findByIdAndUpdate({_id: cat._id}, cat, {new: true}).exec();
+  async updateOne(cat: Cat): Promise<Cat> {
+    return await this.catModel
+      .findByIdAndUpdate({ _id: cat._id }, cat, { new: true })
+      .exec();
   }
 }

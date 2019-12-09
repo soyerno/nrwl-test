@@ -18,12 +18,14 @@ import { NxModule } from '@nrwl/angular';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../../environments/environment';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { NbToastrModule, NbToastrService } from '@nebular/theme';
 
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
     RouterModule,
+    NbToastrModule.forRoot(),
     NxModule.forRoot(),
     StoreModule.forRoot(
       {},
@@ -41,6 +43,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
     StoreModule.forFeature(fromCore.CORE_FEATURE_KEY, fromCore.reducer)
   ],
   providers: [
+    NbToastrService,
     {
       provide: HttpClient,
       useClass: HttpService

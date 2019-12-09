@@ -48,11 +48,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .onItemClick()
       .pipe(filter(({ tag }) => tag === 'headerUserMemu'))
       .subscribe((event: any) => {
-        console.log(event)
         if (event.item.data.id === 'logout') {
           this.router.navigate(['/', 'auth', 'logout']);
         }
       });
+
+    this.user = {
+      picture: 'https://ui-avatars.com/api/?size=128&name=Hernan&rounded=true'
+    };
 
     // this.userService.getUsers()
     //   .pipe(takeUntil(this.destroy$))

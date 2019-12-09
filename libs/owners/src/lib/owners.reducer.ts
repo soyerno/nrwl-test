@@ -32,7 +32,6 @@ const ownerReducer = createReducer(
     return adapter.upsertMany(owners, state);
   }),
   on(OwnerActions.updateOwner, (state, { owner }) => {
-    console.log(owner);
     return adapter.updateOne({ id: owner._id, changes: owner }, state);
   }),
   on(OwnerActions.updateOwners, (state, { owners }) => {
