@@ -8,8 +8,7 @@ import * as fromCats from './cats.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { CatsEffects } from './cats.effects';
 import { NxModule } from '@nrwl/nx';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NbAuthModule, NbAuthJWTInterceptor, NB_AUTH_TOKEN_INTERCEPTOR_FILTER } from '@nebular/auth';
+import { NbAuthModule } from '@nebular/auth';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CatsService } from './cats.service';
 
@@ -21,27 +20,13 @@ import { CatsService } from './cats.service';
     ReactiveFormsModule,
     EntityDataModule.forRoot(entityConfig),
     NxModule.forRoot(),
-    // RouterModule.forChild([
-    //   /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
-    // ]),
     EffectsModule.forFeature([CatsEffects]),
     StoreModule.forFeature('cats', fromCats.reducer)
   ],
   providers: [
     CatsFacade,
     CatsService,
-    { provide: DefaultDataServiceConfig, useValue: CatsDataServiceConfig },
-    {
-      provide: NB_AUTH_TOKEN_INTERCEPTOR_FILTER,
-      useValue: function() {
-        return false;
-      }
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: NbAuthJWTInterceptor,
-      multi: true
-    }
+    { provide: DefaultDataServiceConfig, useValue: CatsDataServiceConfig }
   ]
 })
 export class CatsModule {}

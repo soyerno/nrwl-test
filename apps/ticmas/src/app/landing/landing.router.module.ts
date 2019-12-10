@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AuthenticationGuard } from 'libs/auth/src/lib/auth';
-import { HomeComponent } from './home.component';
+import { LandingComponent } from './landing.component';
 import { Shell } from '../shell/shell.service';
 
 
+// { path: '', component: LandingComponent, data: { title: 'Ticmas' }, pathMatch: 'full'  }
 const routes: Routes = [
   Shell.childRoutes([
-    { path: '', component: HomeComponent, data: { title: 'Home' }, canActivate: [AuthenticationGuard] }
+    { path: '', component: LandingComponent, data: { title: 'Ticmas' }, pathMatch: 'full'  }
   ])
 ];
 
@@ -17,4 +17,4 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: []
 })
-export class HomeRoutingModule { }
+export class LandingRoutingModule { }

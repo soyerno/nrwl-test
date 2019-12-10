@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { CoreModule } from '../core';
 import { SharedModule } from '../shared';
 import { CatsModule, CatsFacade } from '@ticmasworkspace/cats';
 import { OwnersModule, OwnersFacade } from '@ticmasworkspace/owners';
@@ -15,12 +14,13 @@ import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 import { DefaultDataServiceConfig } from '@ngrx/data';
 import { CatsDataServiceConfig } from '@ticmasworkspace/cats';
 import { OwnersDataServiceConfig } from '@ticmasworkspace/owners';
+import { ShellModule } from '../shell/shell.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    CoreModule,
     SharedModule,
+    ShellModule,
     HomeRoutingModule,
     CatsModule,
     OwnersModule

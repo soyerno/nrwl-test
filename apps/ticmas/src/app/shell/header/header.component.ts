@@ -10,8 +10,9 @@ import {
 // import { UserData } from '../../../@core/data/users';
 // import { LayoutService } from '../../../@core/utils';
 import { map, takeUntil, filter } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { Subject, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { NbAuthService } from '@nebular/auth';
 
 @Component({
   selector: 'app-header',
@@ -21,12 +22,12 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
   userPictureOnly = false;
-  user: any;
+  user: any = null;
+  isAuthenticated = false;
 
   currentTheme = 'default';
-
   userMenu = [
-    { title: 'Profile' },
+    { title: 'Profile', data: { id: 'profile' } },
     { title: 'Log out', data: { id: 'logout' } }
   ];
 
@@ -34,7 +35,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     // private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
     private themeService: NbThemeService,
-    // private userService: UserData,
+    public userService: NbAuthService,
     // private layoutService: LayoutService,
     private router: Router,
     private nbMenuService: NbMenuService,
@@ -51,12 +52,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
         if (event.item.data.id === 'logout') {
           this.router.navigate(['/', 'auth', 'logout']);
         }
+        if (event.item.data.id === 'profile') {
+          this.router.navigate(['/', 'profile']);
+        }
       });
 
     this.user = {
       picture: 'https://ui-avatars.com/api/?size=128&name=Hernan&rounded=true'
     };
 
+    this.userService
+      .isAuthenticated()
+      .subscribe(
+        (isAuthenticated: any) => (this.isAuthenticated = isAuthenticated)
+      );
     // this.userService.getUsers()
     //   .pipe(takeUntil(this.destroy$))
     //   .subscribe((users: any) => this.user = users.nick);

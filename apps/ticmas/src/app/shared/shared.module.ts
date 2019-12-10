@@ -20,6 +20,7 @@ import {
 } from '@nebular/theme';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { ShellModule } from '../shell/shell.module';
 
 @NgModule({
   imports: [

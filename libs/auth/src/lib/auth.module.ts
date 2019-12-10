@@ -4,10 +4,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {
   NbPasswordAuthStrategy,
   NbAuthModule,
-  NbAuthJWTToken,
-  NbAuthJWTInterceptor,
-  NB_AUTH_TOKEN_INTERCEPTOR_FILTER,
-  nbNoOpInterceptorFilter
+  NbAuthJWTToken
 } from '@nebular/auth';
 import { AuthRoutingModule } from './auth-routing.module';
 
@@ -46,12 +43,5 @@ import { AuthRoutingModule } from './auth-routing.module';
     AuthRoutingModule
   ],
   declarations: [],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: NbAuthJWTInterceptor,
-      multi: true
-    }
-  ]
 })
 export class AuthModule {}

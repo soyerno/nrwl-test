@@ -2,22 +2,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
-import { HomeModule } from './home/home.module';
 import { SharedModule } from './shared';
 import { CoreModule } from './core';
 import { ShellModule } from './shell/shell.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { AuthModule, AuthenticationGuard } from '../../../../libs/auth/src/lib/auth'
 import { NbMenuModule } from '@nebular/theme';
+import { NbAuthJWTInterceptor, NB_AUTH_TOKEN_INTERCEPTOR_FILTER } from '@nebular/auth';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,7 +32,6 @@ import { NbMenuModule } from '@nebular/theme';
     CoreModule,
     SharedModule,
     AuthModule,
-    HomeModule,
     ShellModule,
     BrowserAnimationsModule,
     NbMenuModule.forRoot(),
@@ -41,7 +39,18 @@ import { NbMenuModule } from '@nebular/theme';
     AppRoutingModule,
   ],
   providers: [
-    AuthenticationGuard
+    AuthenticationGuard,
+    {
+      provide: NB_AUTH_TOKEN_INTERCEPTOR_FILTER,
+      useValue: function() {
+        return false;
+      }
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: NbAuthJWTInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

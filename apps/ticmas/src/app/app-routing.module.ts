@@ -3,7 +3,21 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   // Fallback when no prior route is matched
-  { path: '**', redirectTo: '', pathMatch: 'full' }
+  {
+    path: 'profile',
+    loadChildren: () =>
+      import('./profile/profile.module').then(m => m.ProfileModule)
+  },
+  {
+    path: 'home',
+    loadChildren: () =>
+      import('./home/home.module').then(m => m.HomeModule)
+  },
+  {
+    path: '**',
+    loadChildren: () =>
+      import('./landing/landing.module').then(m => m.LandingModule)
+  },
 ];
 
 @NgModule({
@@ -11,4 +25,4 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: []
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
