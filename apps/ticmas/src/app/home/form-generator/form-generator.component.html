@@ -1,0 +1,22 @@
+<div class="card-row">
+  <div class="card-col">
+    <nb-card>
+      <nb-card-header>
+        Form Generator
+      </nb-card-header>
+      <nb-card-body>
+        <app-dynamic-form
+          editable="true"
+          [inputs]="formStructure"
+          [form]="form"
+          (save)="save($event)"
+        ></app-dynamic-form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="card-col">
+    <app-form-generator-add-input
+      (save)="addInput($event)"
+    ></app-form-generator-add-input>
+  </div>
+</div>

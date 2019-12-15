@@ -1,8 +1,15 @@
 <div>
   <form (ngSubmit)="onSubmit()" [formGroup]="form">
     <div *ngFor="let input of inputs" class="form-row">
-      <app-input [input]="input" [form]="form"></app-input>
+      <div *ngIf="editable">
+        <app-dynamic-form-input-editable-controls [input]="input"></app-dynamic-form-input-editable-controls>
+        <app-input [input]="input" [form]="form"></app-input>
+      </div>
+      <div *ngIf="!editable">
+        <app-input [input]="input" [form]="form"></app-input>
+      </div>
     </div>
+    <ng-content></ng-content>
     <br>
     <div class="form-row">
       <button

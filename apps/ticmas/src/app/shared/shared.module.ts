@@ -7,10 +7,13 @@ import {
   NbCardModule,
   NbButtonModule,
   NbInputModule,
+  NbRadioModule,
+  NbCheckboxModule,
   NbActionsModule,
   NbLayoutModule,
   NbMenuModule,
   NbSearchModule,
+  NbToggleModule,
   NbSidebarModule,
   NbUserModule,
   NbContextMenuModule,
@@ -20,7 +23,6 @@ import {
 } from '@nebular/theme';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { ShellModule } from '../shell/shell.module';
 
 @NgModule({
   imports: [
@@ -31,11 +33,14 @@ import { ShellModule } from '../shell/shell.module';
     NbCardModule,
     NbButtonModule,
     NbInputModule,
+    NbRadioModule,
+    NbCheckboxModule,
     NbEvaIconsModule,
     NbActionsModule,
     NbLayoutModule,
     NbMenuModule,
     NbSearchModule,
+    NbToggleModule,
     NbSidebarModule,
     NbUserModule,
     NbContextMenuModule,
@@ -53,11 +58,14 @@ import { ShellModule } from '../shell/shell.module';
     NbCardModule,
     NbButtonModule,
     NbInputModule,
+    NbRadioModule,
+    NbCheckboxModule,
     NbEvaIconsModule,
     NbActionsModule,
     NbLayoutModule,
     NbMenuModule,
     NbSearchModule,
+    NbToggleModule,
     NbSidebarModule,
     NbUserModule,
     NbContextMenuModule,

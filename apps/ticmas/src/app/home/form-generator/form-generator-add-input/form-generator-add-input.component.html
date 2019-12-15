@@ -1,0 +1,15 @@
+<nb-card>
+  <nb-card-header>
+    Add Input
+  </nb-card-header>
+  <nb-card-body class="card-scroll">
+    <app-dynamic-form
+      [inputs]="formStructure"
+      [form]="form"
+      (save)="addInput($event)"
+      (onChange)="onChange($event)"
+    >
+      <app-dynamic-input-editable-options *ngIf="withOptions"> </app-dynamic-input-editable-options>
+    </app-dynamic-form>
+  </nb-card-body>
+</nb-card>

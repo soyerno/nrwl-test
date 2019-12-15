@@ -1,0 +1,32 @@
+<p>Options</p>
+<form (ngSubmit)="onSubmit()" [formGroup]="form">
+  <hr />
+  <div *ngFor="let input of inputs" class="form-row">
+    <input
+      nbInput
+      shape="rectangle"
+      [placeholder]="'Label'"
+      [formControlName]="input.label"
+      [id]="input.label"
+      [type]="'textbox'"
+    />
+    <input
+      nbInput
+      shape="rectangle"
+      [placeholder]="'Value'"
+      [formControlName]="input.value"
+      [id]="input.value"
+      [type]="'textbox'"
+    />
+    <hr />
+  </div>
+  <button
+    (click)="addOne($event)"
+    class="control-btn"
+    nbButton
+    size="tiny"
+    status="success"
+  >
+    <nb-icon icon="plus-outline"></nb-icon>
+  </button>
+</form>

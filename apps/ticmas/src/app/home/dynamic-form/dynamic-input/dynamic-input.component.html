@@ -14,10 +14,27 @@
       [type]="input.type"
     />
 
+    <nb-toggle
+      *ngSwitchCase="'toggle'"
+      [formControlName]="input.key"
+      [id]="input.key"
+    ></nb-toggle>
+
+    <nb-radio-group
+      [id]="input.key"
+      *ngSwitchCase="'radio'"
+      [formControlName]="input.key"
+    >
+      <nb-radio *ngFor="let option of input.options" [value]="option.value">
+        {{ option.label }}
+      </nb-radio>
+    </nb-radio-group>
     <nb-select
+      fullWidth
       [id]="input.key"
       *ngSwitchCase="'dropdown'"
       [formControlName]="input.key"
+      [(selected)]="input.value"
     >
       <nb-option *ngFor="let opt of input.options" [value]="opt.key">{{
         opt.value
