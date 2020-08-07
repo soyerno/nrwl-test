@@ -60,7 +60,7 @@
     "@nguniversal/module-map-ngfactory-loader": "^8.1.1",
     "@nrwl/angular": "8.8.0",
     "@nrwl/nx": "^7.8.7",
-    "class-transformer": "^0.2.3",
+    "class-transformer": "^0.3.1",
     "class-validator": "^0.11.0",
     "core-js": "^2.5.4",
     "dialogflow": "^1.0.0",
