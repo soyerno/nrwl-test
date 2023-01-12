@@ -61,7 +61,7 @@
     "@nrwl/angular": "8.8.0",
     "@nrwl/nx": "^7.8.7",
     "class-transformer": "^0.2.3",
-    "class-validator": "^0.11.0",
+    "class-validator": "^0.14.0",
     "core-js": "^2.5.4",
     "dialogflow": "^1.0.0",
     "eva-icons": "^1.1.1",
